@@ -1,0 +1,72 @@
+<br />
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+<% if resource.errors.empty? %>
+<% else %>
+<div class="ui error message">
+  <%= devise_error_messages! %>
+</div>
+<% end %>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <div class="ui message">
+      <h2>Edit my profile</h2>
+      <%= link_to "Back", :back , class: "ui blue basic button"%>
+    </div>
+    <div class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <%= f.text_field :first_name, autofocus: true, placeholder: "First Name" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <%= f.text_field :last_name, placeholder: "Last Name" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="mail icon"></i>
+            <%= f.email_field :email, placeholder: "E-mail Address" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="home icon"></i>
+            <%= f.text_field :address, placeholder: "Postal Address" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <%= f.password_field :password, autocomplete: "off", placeholder: "Password (8 char min)" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <%= f.password_field :current_password, autocomplete: "off", placeholder: "Current Password" %>
+          </div>
+        </div>
+        <div class="actions"><%= f.submit "Edit", class: "ui blue basic button"%></div>
+      </div>
+    </div>
+    <% end %>
+    <br />
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <div class="ui message">
+          <%= button_to "Delete my profile", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "ui red button" %>
+        </div>
+      </div>
+    </div>

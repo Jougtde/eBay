@@ -1,0 +1,47 @@
+<br />
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <div class="ui message">
+      <h2>My product</h2>
+      <%= link_to "Back", :back , class: "ui blue basic button"%>
+    </div>
+    <div class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="tag icon"></i>
+            <%= f.text_field :title, autofocus: true, placeholder: "Title" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <%= f.text_area :description, placeholder: "Description", class: ""%>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="euro icon"></i>
+            <%= f.number_field :price, placeholder: "Price" %>
+          </div>
+        </div>
+        <div class="actions"><%= f.submit "Edit", class: "ui blue basic button"%></div>
+      </div>
+    </div>
+    <% end %>
+
+
+<%= link_to 'Show', @product %> |
+<%= link_to 'Back', products_path %>

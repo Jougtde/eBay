@@ -1,0 +1,35 @@
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
+<table class="ui striped celled table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Postal Address</th>
+      <th>Ratings</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.address %></td>
+      <td><%= rating_for user, "note_user", half_show: true, enable_half: true  %></td>
+      <td>
+        <%= link_to user, :class=>  "ui blue basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
+        <% if current_user %>
+        <% if current_user.role == "admin" %>
+        <%= link_to edit_user_path(user), :class=>  "ui blue basic button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+        <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>

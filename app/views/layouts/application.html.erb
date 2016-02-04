@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>eBay</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="up">
+    <%= render "layouts/navbar" %>
+  </div>
+
+  <%= semantic_flash %>
+
+  <div id="wrap">
+    <div class="container">
+      <%= yield %>
+    </div>
+  </div>
+
+  <!-- <div id="footer">
+  <div class="container">
+  <%= render "layouts/footer" %>
+</div>
+</div> -->
+</body>
+</html>

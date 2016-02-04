@@ -1,0 +1,31 @@
+<br /><br /><br /><br /><br /><br />
+<div class="ui middle aligned center aligned grid">
+    <div class="ui cards">
+        <div class="card">
+            <div class="image">
+                <img src="<%= @product.img %>"/>
+                <!-- <%= image_tag 'playstation' %> -->
+            </div>
+            <div class="content">
+                <div class="header"><%= @product.title %></div>
+                <div class="meta">
+                    <a><%= @product.price %>€</a>
+                </div>
+                <div class="description">
+                    <%= @product.description %>
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">
+                    Added in <strong><%= @product.created_at.to_formatted_s(:monthyear) %></strong>
+                </span>
+                <span>
+                    <%= rating_for @product, "note_product", half_show: true, enable_half: true %>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

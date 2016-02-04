@@ -1,0 +1,62 @@
+<br /><br /><br /><br /><br /><br />
+<div class="ui middle aligned center aligned grid">
+    <div class="ui cards">
+        <div class="card">
+            <div class="image">
+                <%= image_tag 'no_avatar' %>
+            </div>
+            <div class="content">
+                <div class="header"><%= @user.first_name %> <%= @user.last_name %></div>
+                <div class="meta">
+                    <a><%= @user.role %></a>
+                </div>
+                <div class="description">
+                    <%= @user.address %>
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">
+                    Joined in <strong><%= @user.created_at.to_formatted_s(:monthyear) %></strong>
+                </span>
+                <span>
+                  <%= rating_for @user, "note_user", half_show: true, enable_half: true  %>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if @products != nil %>
+<br />
+<table class="ui striped celled table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+    <% @user = User.find(product.user_id) %>
+    <tr>
+      <td><%= product.title %></td>
+      <td><%= product.description %></td>
+      <td><%= product.price %><i class="euro icon"></i></td>
+      <td>
+        <%= link_to product, :class=>  "ui blue basic button" do %> <i class="unhide icon"></i> <%= "Show" %> <% end %>
+        <% if current_user != nil &&  current_user.role == "admin" %>
+        <%= link_to edit_product_path(product), :class=>  "ui blue basic button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+        <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Product', new_product_path %>
+
+<% end %>

@@ -1,0 +1,16 @@
+<div class="ui menu">
+  <a href="/" class="item">Index</a>
+  <a href="/users" class="item">Users</a>
+  <a href="/products" class="item">Products</a>
+  <a href="/categories" class="item">Categories</a>
+  <div class="right menu">
+    <% if user_signed_in? %>
+      <div class="item">Connected as&nbsp;<strong><%= current_user.first_name %></strong></div>
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'item' %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'item'  %>
+    <% else %>
+      <%= link_to "Register", new_user_registration_path, :class => 'item'  %>
+      <%= link_to "Login", new_user_session_path, :class => 'item'  %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<% if current_user %>
+  <% if current_user.role == "admin" %>
+  <%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %> <!-- END MESSAGE -->
+    </ul>
+  </div>
+  <% end %> <!-- END ERRORS -->
+  <br />
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <div class="ui message">
+        <div class="field">
+          <i class="user icon"></i>
+          <%= f.label :first_name %><br>
+          <%= f.text_field :first_name %>
+        </div>
+        <div class="field">
+          <i class="user icon"></i>
+          <%= f.label :last_name %><br>
+          <%= f.text_field :last_name %>
+        </div>
+        <div class="field">
+          <i class="mail icon"></i>
+          <%= f.label :email %><br>
+          <%= f.text_field :email %>
+        </div>
+        <div class="field">
+          <i class="home icon"></i>
+          <%= f.label :address %><br>
+          <%= f.text_field :address %>
+        </div>
+        <div class="field">
+          <i class="wizard icon"></i>
+          <%= f.label :role %><br>
+          <%= f.text_field :role %>
+        </div>
+        <br>
+        <div class="actions">
+          <%= f.submit :class=> "ui blue basic button"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %> <!-- END FORM -->
+  <% else %> <!-- ELSE ADMIN -->
+redirect_to "/"
+  <% end %> <!-- END ADMIN -->
+  <% else %> <!-- ELSE CURRENT -->
+redirect_to "/"
+  <% end %> <!-- END CURRENT -->

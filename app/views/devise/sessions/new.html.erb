@@ -1,0 +1,42 @@
+<br />
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <div class="ui message">
+      <h2>Login</h2>
+    </div>
+    <form class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="mail icon"></i>
+            <%= f.email_field :email, placeholder: "E-mail Address" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <%= f.password_field :password, autocomplete: "off", placeholder: "Password (8 char min)" %>
+          </div>
+        </div>
+          <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <div class="ui slider checkbox">
+              <%= f.check_box :remember_me %>
+              <label>Remember me ?  </label>
+            </div>
+          </div>
+          <% end -%>
+        <br />
+        <div class="actions"><%= f.submit "Log in", class: "ui blue basic button"%></div>
+      </div>
+    </form>
+
+    <div class="ui message">
+      New member ?<br /><br />
+      <a href="/users/sign_up" class="ui blue basic button">Register</a>
+    </div>
+  </div>
+</div>
+<% end %>
