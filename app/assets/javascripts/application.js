@@ -21,3 +21,11 @@
 
 //= require bootstrap-sprockets
 //= require semantic-ui
+//= require jquery-ui
+//= require autocomplete-rails
+
+$( document ).ready(function() {
+  $('.search-query').bind('railsAutocomplete.select', function(event, data) {
+  $('.search-me').trigger('click')
+  });
+});

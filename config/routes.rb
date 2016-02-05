@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
   resources :users, :only => [:show, :index, :update, :destroy, :edit]
 
+  resources :categories do
+  get :autocomplete_category_name, on: :collection
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

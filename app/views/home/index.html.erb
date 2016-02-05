@@ -1,0 +1,48 @@
+<h4 class="ui horizontal divider header">
+  <i class="announcement icon"></i>
+  Last products
+</h4>
+
+<% @products = Product.all %>
+
+<div class="ui four special cards">
+  <% @products.last(8).each do |product| %>
+  <% @user = User.find(product.user_id) %>
+  <div class="card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui inverted button"><%= rating_for product, "note_product", half_show: true, enable_half: true %></div>
+          </div>
+        </div>
+      </div>
+      <img src="<%= product.img %>"/>
+    </div>
+    <div class="content">
+      <div class="header"><%= product.title %></div>
+      <div class="meta">
+        <%= product.price %>€
+      </div>
+      <div class="description">
+        <%= product.description %>
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="meta">
+        Added in <strong><%= product.created_at.to_formatted_s(:monthyear) %></strong>by <%= link_to @user do %><%= @user.first_name %> <% end %>
+      </span>
+    </div>
+    <div class="extra content">
+      <span class="text-center">
+        <%= rating_for product, "note_product", half_show: true, enable_half: true %>
+      </span>
+    </div>
+  </div>
+  <% end %>
+</div>
+<script>
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+</script>

@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  autocomplete :category, :name, :full => true
 
   # GET /categories
   # GET /categories.json
