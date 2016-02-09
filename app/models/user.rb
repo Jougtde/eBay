@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   ratyrate_rater
   ratyrate_rateable 'note_user'
 
+  acts_as_commentable
+
   has_many :products, foreign_key: "user_id", dependent: :destroy
 
   devise :database_authenticatable, :registerable,

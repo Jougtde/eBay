@@ -11,6 +11,7 @@
   <div id="up">
     <%= render "layouts/navbar" %>
   </div>
+
   <div id="wrap">
     <div class="container">
       <br />
@@ -18,21 +19,5 @@
       <%= yield %>
     </div>
   </div>
-
-  <!-- <div id="footer">
-  <div class="container">
-  <%= render "layouts/footer" %>
-</div>
-</div> -->
-<script>
-$('.message .close')
-.on('click', function() {
-  $(this)
-  .closest('.message')
-  .transition('fade')
-  ;
-})
-;
-</script>
 </body>
 </html>

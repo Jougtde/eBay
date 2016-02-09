@@ -10,9 +10,14 @@ gem 'faker'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 gem 'ancestry', '~> 2.1'
-gem 'rails4-autocomplete'
+gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
 gem 'jquery-ui-rails'
 gem 'gravatar_image_tag'
+gem "algoliasearch-rails"
+gem 'hogan_assets'
+gem 'social-share-button'
+gem 'acts_as_commentable'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

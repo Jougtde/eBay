@@ -1,9 +1,42 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @category.name %>
 </p>
+
+<% if @products != nil %>
+<br />
+<table class="ui striped celled table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>User</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+    <% @user = User.find(product.user_id) %>
+    <% @categories = Category.find(product.category_id) %>
+    <tr>
+      <td><%= product.title %></td>
+      <td><%= product.description %></td>
+      <td><%= product.price %><i class="euro icon"></i></td>
+      <td><%= link_to @user do %><%= @user.first_name %> <% end %></td>
+      <td>
+        <%= link_to product, :class=>  "ui blue basic button" do %> <i class="unhide icon"></i> <%= "Show" %> <% end %>
+        <% if current_user != nil &&  current_user.role == "admin" %>
+        <%= link_to edit_product_path(product), :class=>  "ui blue basic button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+        <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>

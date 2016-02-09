@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  autocomplete :category, :name, :full => true
+  autocomplete :category, :name, full: true
 
   # GET /categories
   # GET /categories.json
@@ -66,10 +66,11 @@ class CategoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
+      @products = Product.where(category_id: @category)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name, :parent_id)
+      params.require(:category).permit(:name, :parent_id, :img)
     end
 end

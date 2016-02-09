@@ -1,26 +1,60 @@
-<h1>Listing Categories</h1>
+<h4 class="ui horizontal divider header">
+  <i class="block layout icon"></i>
+  Categories
+</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="4">Actions</th>
-    </tr>
-  </thead>
+<% @categories = Category.where(ancestry: nil) %>
 
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to "Add sub category", new_category_path(:parent_id => category) %> |</td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="ui four special cards">
+  <% @categories.each do |category| %>
+  <% @childrens = Category.find(category.child_ids) %>
+  <div class="card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <% @childrens.each do |child| %>
+            <li>
+              <%= link_to child.name, child %>
+            </li>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <img src="<%= category.img %>" height="320" width="240">
+    </div>
+    <div class="content">
+      <div class="header text-center"><%= category.name %></div>
+    </div>
+    <div class="extra content">
+      <span class="meta">
+        Added in <strong><%= category.created_at.to_formatted_s(:monthyear) %></strong>
+      </span>
+    </div>
+    <div class="content">
+      <div class="ui two buttons">
+        <div class="ui basic green button"><%= link_to "Create Sub Category", new_category_path(:parent_id => category) %></div>
+        <div class="ui basic blue button"><%= link_to 'Show Category', category %></div>
+      </div>
+    </div>
+    <% if current_user != nil &&  current_user.role == "admin" %>
+    <div class="content">
+      <div class="ui two buttons">
+        <div class="ui basic blue button"><%= link_to 'Edit', edit_category_path(category) %></div>
+        <div class="ui basic red button"><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <% end %>
+</div>
 
-<br>
+
+<script>
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+</script>
+
 
 <%= link_to 'New Category', new_category_path %>

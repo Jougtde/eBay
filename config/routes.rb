@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
 
-  resources :categories
+  match "/products/add_new_comment" => "products#add_new_comment", :as => "add_new_comment_to_products", :via => [:post]
+  match "/users/add_new_comment" => "users#add_new_comment", :as => "add_new_comment_to_users", :via => [:post]
+
+  resources :categories do
+    get :autocomplete_category_name, :on => :collection
+  end
+
   post '/rate' => 'rater#create', :as => 'rate'
+
   resources :products
+
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
   resources :users, :only => [:show, :index, :update, :destroy, :edit]
 
-  resources :categories do
-  get :autocomplete_category_name, on: :collection
-  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

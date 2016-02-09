@@ -7,7 +7,7 @@
   <div class="ui cards">
     <div class="card">
       <div class="image">
-        <%= gravatar_image_tag(@user.email.gsub('spam', 'mdeering'), :alt => @user.first_name, :gravatar => { :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' } ) %>
+        <img src="http://random-octodex.herokuapp.com/random"/>
       </div>
       <div class="content">
         <div class="header"><%= @user.first_name %> <%= @user.last_name %></div>
@@ -29,9 +29,47 @@
     </div>
   </div>
 </div>
+<br />
+<% @commentable = @user %>
+<% @comments = @commentable.comments.recent.limit(10).all %>
+<div class="ui message">
+  <h3 class="ui dividing header">Latest Comments</h3>
+  <% @comments.each do |c| %>
+  <br />
+  <div class="comment">
+    <h3 class="ui dividing header"><p class="avatar">
+      <%= link_to user_path(c.user_id) do %>
+      <img src="http://random-octodex.herokuapp.com/random" height="80" width="80">
+      <% end %>
+    </p></h3>
+    <div class="content">
+      <%= link_to User.find(c.user_id).first_name, user_path(c.user_id) %>
+      <span class="date">on <%= c.created_at.strftime("%A %d %b. %Y  %k:%M:%S") %></span>
+      <div class="text">
+        <%= c.comment %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <br>
+
+  <%= form_tag "/users/add_new_comment" do %>
+  <form class="ui reply form">
+    <div class="field">
+      <%= hidden_field_tag "id", @user.id %>
+      <%= text_area_tag (:comment)  %>
+    </div>
+    <div>
+      <%= button_tag(type: "submit", class: "ui blue basic icon button") do %>
+      <i class="icon edit"></i> Send review
+      <% end %>
+    </div>
+  </form>
+  <% end %>
+</div>
+
 
 <% if @products != nil %>
-<br />
 <table class="ui striped celled table">
   <thead>
     <tr>

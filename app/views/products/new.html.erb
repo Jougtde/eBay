@@ -1,16 +1,16 @@
 <br />
 <%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<% if @product.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-      <% @product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @product.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
@@ -28,7 +28,12 @@
         </div>
         <div class="field">
           <div class="ui left icon input">
-            <%= f.text_area :description, placeholder: "Description", class: ""%>
+            <%= f.text_area :description, placeholder: "Description" %>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <%= f.collection_select(:category_id, @categories, :id, :name, {:prompt => 'Select a category for your product' }) %>
           </div>
         </div>
         <div class="field">
@@ -44,4 +49,4 @@
     <% end %>
 
 
-<%= link_to 'Back', products_path %>
+    <%= link_to 'Back', products_path %>

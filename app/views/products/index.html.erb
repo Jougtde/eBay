@@ -2,6 +2,12 @@
   <i class="tag icon"></i>
 Listing products
 </h4>
+
+<div class="ui icon input">
+  <input placeholder="Search..." type="text" id="title_search">
+  <i class="circular search link icon"></i>
+</div>
+
 <table class="ui striped celled table">
   <thead>
     <tr>
@@ -9,6 +15,7 @@ Listing products
       <th>Description</th>
       <th>Price</th>
       <th>User</th>
+      <th>Category</th>
       <th>Ratings</th>
       <th>Actions</th>
     </tr>
@@ -17,11 +24,13 @@ Listing products
   <tbody>
     <% @products.each do |product| %>
     <% @user = User.find(product.user_id) %>
+    <% @category = Category.find(product.category_id) %>
     <tr>
       <td><%= product.title %></td>
       <td><%= product.description %></td>
       <td><%= product.price %><i class="euro icon"></i></td>
       <td><%= link_to @user do %><%= @user.first_name %> <% end %></td>
+      <td><%= link_to @category do %><%= @category.name %> <% end %></td>
       <td><%= rating_for product, "note_product", half_show: true, enable_half: true  %></td>
       <td>
         <%= link_to product, :class=>  "ui blue basic button" do %> <i class="unhide icon"></i> <%= "Show" %> <% end %>

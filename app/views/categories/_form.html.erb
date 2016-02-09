@@ -13,11 +13,12 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <!-- <%= f.text_field :name %> -->
+    <%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
     <%= f.hidden_field :parent_id %>
   </div>
   <div class="field">
-    <%= f.autocomplete_field :name, autocomplete_category_name_categories_path %>
+    Image Link
+    <%= f.text_field :img %>
   </div>
   <div class="actions">
     <%= f.submit %>

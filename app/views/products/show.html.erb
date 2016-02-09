@@ -4,31 +4,71 @@
 </h4>
 <br />
 <div class="ui middle aligned center aligned grid">
-    <div class="ui cards">
-        <div class="card">
-            <div class="image">
-                <img src="<%= @product.img %>"/>
-                <!-- <%= image_tag 'playstation' %> -->
-            </div>
-            <div class="content">
-                <div class="header"><%= @product.title %></div>
-                <div class="meta">
-                    <a><%= @product.price %>€</a>
-                </div>
-                <div class="description">
-                    <%= @product.description %>
-                </div>
-            </div>
-            <div class="extra content">
-                <span class="right floated">
-                    Added in <strong><%= @product.created_at.to_formatted_s(:monthyear) %></strong>
-                </span>
-                <span>
-                    <%= rating_for @product, "note_product", half_show: true, enable_half: true %>
-                </span>
-            </div>
+  <div class="ui cards">
+    <div class="card">
+      <div class="image">
+        <img src="<%= @product.img %>"/>
+      </div>
+      <div class="content">
+        <div class="header"><%= @product.title %></div>
+        <div class="meta">
+          <a><%= @product.price %>€</a>
         </div>
+        <div class="description">
+          <%= @product.description %>
+        </div>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          Added in <strong><%= @product.created_at.to_formatted_s(:monthyear) %></strong>
+        </span>
+        <span>
+          <%= rating_for @product, "note_product", half_show: true, enable_half: true %>
+        </span>
+      </div>
+      <div class="content">
+        <%= social_share_button_tag(@product.title, :popup => "true") %>
+      </div>
     </div>
+  </div>
+</div>
+<br />
+<% @commentable = @product %>
+<% @comments = @commentable.comments.recent.limit(10).all %>
+<div class="ui message">
+  <h3 class="ui dividing header">Latest Comments</h3>
+  <% @comments.each do |c| %>
+<br />
+  <div class="comment">
+    <h3 class="ui dividing header"><p class="avatar">
+      <%= link_to user_path(c.user_id) do %>
+      <img src="http://random-octodex.herokuapp.com/random" height="80" width="80">
+      <% end %>
+    </p></h3>
+    <div class="content">
+      <%= link_to User.find(c.user_id).first_name, user_path(c.user_id) %>
+      <span class="date">on <%= c.created_at.strftime("%A %d %b. %Y  %k:%M:%S") %></span>
+      <div class="text">
+        <%= c.comment %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <br>
+
+  <%= form_tag "/products/add_new_comment" do %>
+  <form class="ui reply form">
+    <div class="field">
+      <%= hidden_field_tag "id", @product.id %>
+      <%= text_area_tag (:comment)  %>
+    </div>
+    <div>
+      <%= button_tag(type: "submit", class: "ui blue basic icon button") do %>
+      <i class="icon edit"></i> Send review
+      <% end %>
+    </div>
+  </form>
+  <% end %>
 </div>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

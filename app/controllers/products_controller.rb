@@ -2,8 +2,6 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :role_admin, only: [:edit, :update, :detroy]
 
-  autocomplete :category, :name, :full => true
-
   # GET /products
   # GET /products.json
   def index
@@ -18,16 +16,19 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   # GET /products/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @categories = Category.all
 
     respond_to do |format|
       if @product.save
@@ -43,6 +44,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+    @categories = Category.all
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -64,6 +66,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def add_new_comment
+    @product = Product.find(params[:id])
+    comment = @product.comments.create
+    comment.comment = params[:comment]
+    comment.user_id = current_user.id
+    comment.save
+    redirect_to :action => :show, :id => @product
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product
@@ -72,7 +83,7 @@ class ProductsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
-    params.require(:product).permit(:title, :description, :price, :user_id)
+    params.require(:product).permit(:title, :description, :price, :user_id, :category_id)
   end
 
   def role_admin

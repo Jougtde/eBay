@@ -46,3 +46,12 @@ $('.special.cards .image').dimmer({
   on: 'hover'
 });
 </script>
+<script>
+    var client = algoliasearch("28WZMOPXJR", "c4f17b7addb30f23aee11e063ac363c2");
+    var index = client.initIndex('Product');
+
+    $('.typeahead').typeahead({hint: true} , {
+      source: index.ttAdapter({hitsPerPage: 10}),
+      displayKey: 'Title' // attribute used for display
+    });
+</script>

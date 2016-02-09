@@ -31,6 +31,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def add_new_comment
+    @user = User.find(params[:id])
+    comment = @user.comments.create
+    comment.comment = params[:comment]
+    comment.user_id = current_user.id
+    comment.save
+    redirect_to :action => :show, :id => @user
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user

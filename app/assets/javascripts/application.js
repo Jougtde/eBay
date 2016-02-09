@@ -21,11 +21,39 @@
 
 //= require bootstrap-sprockets
 //= require semantic-ui
+
 //= require jquery-ui
+
+//= require algolia/v3/algoliasearch.min
+//= require algolia/typeahead.jquery
+//= require hogan
+
+//= require jquery-ui/autocomplete
 //= require autocomplete-rails
 
-$( document ).ready(function() {
-  $('.search-query').bind('railsAutocomplete.select', function(event, data) {
-  $('.search-me').trigger('click')
+//= require social-share-button
+
+$(document).ready(function() {
+  $('.message .close')
+  .on('click', function() {
+    $(this)
+    .closest('.message')
+    .transition('fade')
+    ;
+  });
+});
+
+
+$(document).ready(function() {
+  var client = algoliasearch('28WZMOPXJR', 'c4f17b7addb30f23aee11e063ac363c2');
+  var template = Hogan.compile('{{{_highlightResult.title.value}}}');
+  $('input#title_search').typeahead(null, {
+    source: client.initIndex('Product').ttAdapter(),
+    displayKey: 'title',
+    templates: {
+      suggestion: function(hit) {
+        return template.render(hit);
+      }
+    }
   });
 });
